@@ -20,15 +20,25 @@ section.hero {
   animation: slow-spin 60s linear infinite;
 }
 
+label {
+  @apply text-gray-500 text-sm leading-tight;
+}
+
+label + input {
+  margin-top: -2px;
+}
+
 input[type="email"],
 input[type="password"],
-input[type="text"] {
-  @apply block w-full my-4 rounded-xl;
+input[type="text"],
+input[type="tel"] {
+  @apply block w-full mb-4 rounded-xl;
   @apply border p-2 border-gray-300 bg-gray-200;
 }
 
 input[type="email"]:disabled,
 input[type="password"]:disabled,
+input[type="tel"]:disabled,
 input[type="text"]:disabled {
   @apply bg-gray-300 border-0 cursor-not-allowed text-gray-500;
 }
@@ -39,11 +49,10 @@ button {
 }
 button[type="submit"],
 .submit {
-  @apply border-0 bg-primary text-white 
+  @apply border-0 bg-primary text-white;
 }
 
 button[type="submit"]:disabled,
 submit:disabled {
-  @apply cursor-not-allowed bg-red-400; 
+  @apply cursor-not-allowed bg-red-400;
 }
-
