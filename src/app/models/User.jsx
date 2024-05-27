@@ -5,12 +5,7 @@ const UserSchema = new Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String },
   image: { type: String },
-  phone: { type: String },
-  streetAddress: { type: String },
-  postalCode: { type: String },
-  city: { type: String },
-  state: { type: String },
-  country: { type: String },
+  admin: { type: Boolean, default: false },
 }, { timestamps: true });
 
 export const User = models?.User || model('User', UserSchema);
