@@ -1,7 +1,7 @@
 'use client';
+import EditableImage from "@/components/EditableImage";
 import UserTabs from "@/components/layout/UserTabs";
 import { useSession } from "next-auth/react";
-import Image from "next/image";
 import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -72,34 +72,6 @@ export default function ProfilePage() {
     });
   }
 
-  const handleFileChange = async (ev) => {
-    const files = ev.target.files;
-    if (files?.length === 1) {
-      const data = new FormData;
-      data.set('file', files[0]);
-
-      const uploadPromise = new Promise(async (resolve, reject) => {
-        const response = await fetch('api/upload', {
-          method: 'POST',
-          body: data,
-        })
-        if (response.ok) {
-          const link = await response.json();
-          setImage(link);
-          resolve();
-        } else {
-          reject();
-        }
-      })
-
-      await toast.promise(uploadPromise, {
-        loading: 'Uploading...',
-        success: 'Upload completed !',
-        error: 'Upload error !',
-      });
-    }
-  }
-
   return (
     <section className='mt-8'>
       <UserTabs isAdmin={isAdmin} />
@@ -107,13 +79,7 @@ export default function ProfilePage() {
         <div className="flex gap-4">
           <div className="">
             <div className="p-2 rounded-lg relative max-w-[120px]">
-              {image && (
-                <Image className="rounded-lg w-full h-full mb-1" src={image} alt={'avatar'} width={300} height={300} />
-              )}
-              <label>
-                <input type="file" name="" id="" className="hidden" onChange={handleFileChange} />
-                <span className="border border-gray-300 rounded-lg p-2 text-center block cursor-pointer">Edit</span>
-              </label>
+              <EditableImage link={image} setLink={setImage}/>
             </div>
           </div>
           <form className="grow" onSubmit={handleProfileInfoUpdate}>
