@@ -14,6 +14,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "shivam-pizza-rasoi.s3.amazonaws.com",
       },
+      {
+        protocol: "https",
+        hostname: "firebasestorage.googleapis.com",
+      },
     ],
   },
 };

@@ -50,7 +50,7 @@ Pizza Rasoi is a full-stack web application built using Next.js 14, Node.js, and
 - **[Next-Auth](https://next-auth.js.org/getting-started/example):** For authentication and session management.
 - **[Next Adapters](https://next-auth.js.org/adapters):** For adapting various Next.js features.
 - **[Uniqid](https://classic.yarnpkg.com/en/package/uniqid):** For generating unique IDs.
-- **[AWS SDK / Client](https://classic.yarnpkg.com/en/package/@aws-sdk/client-location):** For handling image uploads to AWS S3.
+- **[Firebase](https://firebase.google.com/):** For handling image uploads to Firebase storage.
 
 ## 🚀 Getting Started
 
@@ -58,7 +58,7 @@ Pizza Rasoi is a full-stack web application built using Next.js 14, Node.js, and
 
 - Node.js
 - MongoDB
-- AWS S3 Account (for image uploads)
+- Firebase Account (for image uploads)
 - Stripe Account (for payment processing)
 
 ### Installation
@@ -83,11 +83,11 @@ Pizza Rasoi is a full-stack web application built using Next.js 14, Node.js, and
    MONGO_URL=<Your MongoDB connection string>
    NEXTAUTH_URL=<Your NextAuth URL>
    NEXTAUTH_SECRET=<Your NextAuth secret>
-   AWS_ACCESS_KEY_ID=<Your AWS access key ID>
-   AWS_SECRET_ACCESS_KEY=<Your AWS secret access key>
-   AWS_REGION=<Your AWS region>
-   AWS_BUCKET_NAME=<Your S3 bucket name>
+   GOOGLE_CLIENT_ID=<Your Google client id>
+   GOOGLE_CLIENT_SECRET=<Your Google client secret key>
    STRIPE_SECRET_KEY=<Your Stripe secret key>
+   FIREBASE=<Refer .env.example>
+
    ```
 
 4. **Run the development server:**

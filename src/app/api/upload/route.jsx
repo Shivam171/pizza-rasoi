@@ -1,40 +1,28 @@
-import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
-import uniqid from "uniqid";
+import { app } from "@/components/Firebase";
+import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
+import uniqid from "uniqid"; 
 
-export async function POST(req) {
-  const data = await req.formData();
-  if (data.get('file')) {
+export async function POST(req,res) {
+  try {
+    const data = await req.formData();
     const file = data.get('file');
 
-    const s3Client = new S3Client({
-      region: 'us-east-1',
-      crdentials: {
-        accessKeyId: process.env.AWS_ACCESS_KEY,
-        secretAccessKey: process.env.AWS_SECRET_KEY,
-      }
-    });
-
-    const ext = file.name.split('.').slice(-1)[0];
-    const newFileName = uniqid() + '.' + ext;
-
-    const chunks = [];
-    for await (const chunk of file.stream) {
-      chunks.push(chunk);
+    if (!file) {
+      return new Response(JSON.stringify({ error: 'No file found in the request' }), { status: 400 });
     }
-    const buffer = Buffer.concat(chunks);
 
-    const bucket = 'shivam-pizza-rasoi'
+    // Get a reference to the Firebase Storage bucket
+    const storage = getStorage(app);
+    const storageRef = ref(storage, uniqid());
 
-    s3Client.send(new PutObjectCommand({
-      Bucket: bucket,
-      Key: newFileName,
-      ACL: 'public-read',
-      ContentType: file.type,
-      Body: buffer,
-    }));
-    const link = 'https://' + bucket + '.s3.amazonaws.com/' + newFileName;
+    // Upload file to Firebase Storage
+    await uploadBytes(storageRef, file);
+    // Get the download URL of the uploaded file
+    const downloadURL = await getDownloadURL(storageRef);
 
-    return Response.json(link);
+    return new Response(JSON.stringify({ url: downloadURL }), { status: 200 });
+  } catch (error) {
+    console.error('Error during file upload:', error.message);
+    return new Response(JSON.stringify({ error: 'File upload failed' }), { status: 500 });
   }
-  return Response.json(true);
-} 
+}
