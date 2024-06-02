@@ -1,13 +1,13 @@
 import { initializeApp } from "firebase/app";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyACtc8jmGot9kBlo_htDcU8mlt9EAcTi7s",
-  authDomain: "pizza-rasoi.firebaseapp.com",
-  projectId: "pizza-rasoi",
-  storageBucket: "pizza-rasoi.appspot.com",
-  messagingSenderId: "281181146572",
-  appId: "1:281181146572:web:d9441a171622a9b5aa2169",
-  measurementId: "G-GYN48BMVZN"
+  apiKey: process.env.FIREBASE_API_KEY,
+  authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.FIREBASE_PROJECT_ID,
+  storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.FIREBASE_APP_ID,
+  measurementId: process.env.FIREBASE_MEASUREMENT_ID,
 };
 
 // Initialize Firebase

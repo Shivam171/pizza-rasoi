@@ -83,7 +83,11 @@ Pizza Rasoi is a full-stack web application built using Next.js 14, Node.js, and
    MONGO_URL=<Your MongoDB connection string>
    NEXTAUTH_URL=<Your NextAuth URL>
    NEXTAUTH_SECRET=<Your NextAuth secret>
+   GOOGLE_CLIENT_ID=<Your Google client id>
+   GOOGLE_CLIENT_SECRET=<Your Google client secret key>
    STRIPE_SECRET_KEY=<Your Stripe secret key>
+   FIREBASE=<Refer .env.example>
+
    ```
 
 4. **Run the development server:**
