@@ -1,16 +1,21 @@
 'use client'
-import EditableImage from '@/components/EditableImage';
-import UserTabs from '@/components/layout/UserTabs';
 import useProfile from "@/components/UseProfile";
-import { useState } from 'react';
-import toast from 'react-hot-toast';
+import Right from "@/components/icons/Right";
+import UserTabs from "@/components/layout/UserTabs";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export default function MenuItemsPage() {
   const { loading: profileLoading, data: profileData } = useProfile();
-  const [image, setImage] = useState('');
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
-  const [basePrice, setBasePrice] = useState('');
+  const [menuItems, setMenuItems] = useState([]);
+  useEffect(() => {
+    fetch('/api/menu-items').then(res => {
+      res.json().then(menuItems => {
+        setMenuItems(menuItems);
+        console.log(menuItems);
+      })
+    })
+  }, []);
 
   if (profileLoading) {
     return 'Loading user info...';
@@ -20,64 +25,25 @@ export default function MenuItemsPage() {
     return 'Not an admin';
   }
 
-  const handleFormSubmit = async (ev) => {
-    ev.preventDefault();
-    const data = {
-      image, name, description, basePrice
-    }
-    const savingPromise = new Promise(async (resolve, reject) => {
-      const response = await fetch('/api/menu-items', {
-        method: 'POST',
-        body: JSON.stringify(data),
-        headers: { 'Content-Type': 'application/json' },
-      })
-      if (response.ok) {
-        resolve()
-      } else {
-        reject()
-      }
-    })
-    await toast.promise(savingPromise, {
-      loading: 'Saving this tasty item...',
-      success: 'Item saved',
-      error: 'Error saving item!'
-    })
-  }
-
   return (
-    <section className='mt-8'>
+    <section className="mt-8 mx-w-md mx-auto">
       <UserTabs isAdmin={true} />
-      <form className='mt-8 max-w-lg mx-auto' onSubmit={handleFormSubmit}>
-        <div
-          className="grid items-start gap-4"
-          style={{ gridTemplateColumns: '.3fr .7fr' }}
+      <div className="mt-8">
+        <Link
+          className="button flex custom-button"
+          href={'/menu-items/new'}
         >
+          <span>Create new menu item</span>
+          <Right />
+        </Link>
+      </div>
+      <div className="">
+        {menuItems?.length > 0 && menuItems.map(item => {
           <div className="">
-            <EditableImage link={image} setLink={setImage} />
+            {item.name}
           </div>
-          <div className="grow">
-            <label>Item name</label>
-            <input
-              type="text"
-              value={name}
-              onChange={(ev) => { setName(ev.target.value) }}
-            />
-            <label>Description</label>
-            <input
-              type="text"
-              value={description}
-              onChange={(ev) => { setDescription(ev.target.value) }}
-            />
-            <label>Base Price</label>
-            <input
-              type="text"
-              value={basePrice}
-              onChange={(ev) => { setBasePrice(ev.target.value) }}
-            />
-            <button type="submit">Save</button>
-          </div>
-        </div>
-      </form>
+        })}
+      </div>
     </section>
   )
 }
