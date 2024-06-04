@@ -7,4 +7,4 @@ const MenuItemsSchema = new Schema({
   basePrice: { type: Number },
 }, { timestamps: true })
 
-export const MenuItems = models?.MenuItems || model('MenuItems', MenuItemsSchema)
+export const MenuItem = models?.MenuItems || model('MenuItems', MenuItemsSchema)
