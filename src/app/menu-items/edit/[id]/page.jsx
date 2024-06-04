@@ -3,13 +3,14 @@ import Left from "@/components/icons/Left";
 import MenuItemForm from "@/components/layout/MenuItemForm";
 import UserTabs from "@/components/layout/UserTabs";
 import Link from "next/link";
-import { redirect } from "next/navigation";
-import { useState } from "react";
+import { redirect, useParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
-export default function NewMenuItemPage() {
+export default function EditMenuItemPage() {
   const [redirectToItems, setRedirectToItems] = useState(false);
-
+  const { id } = useParams();
+  const [menuItem, setMenuItem] = useState(null);
   // const { loading: profileLoading, data: profileData } = useProfile();
   // if (profileLoading) {
   //   return 'Loading user info...';
@@ -18,12 +19,21 @@ export default function NewMenuItemPage() {
   //   return 'Not an admin';
   // }
 
+  useEffect(() => {
+    fetch('/api/menu-items').then(res => {
+      res.json().then(items => {
+        const item = items.find(i => i._id === id)
+        setMenuItem(item);
+      })
+    })
+  }, [id])
+
   const handleFormSubmit = async (ev, data) => {
     ev.preventDefault();
-    data = { ...data };
+    data = { ...data, _id: id };
     const savingPromise = new Promise(async (resolve, reject) => {
       const response = await fetch("/api/menu-items", {
-        method: "POST",
+        method: "PUT",
         body: JSON.stringify(data),
         headers: { "Content-Type": "application/json" },
       });
@@ -55,7 +65,7 @@ export default function NewMenuItemPage() {
           <span>Show all menu items</span>
         </Link>
       </div>
-      <MenuItemForm menuItem={null} onSubmit={handleFormSubmit} />
+      <MenuItemForm menuItem={menuItem} onSubmit={handleFormSubmit} />
     </section>
   );
 }
