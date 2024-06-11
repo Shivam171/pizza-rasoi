@@ -1,4 +1,5 @@
 "use client";
+import DeleteButton from "@/components/DeleteButton";
 import Left from "@/components/icons/Left";
 import MenuItemForm from "@/components/layout/MenuItemForm";
 import UserTabs from "@/components/layout/UserTabs";
@@ -56,6 +57,28 @@ export default function EditMenuItemPage() {
     return redirect("/menu-items");
   }
 
+
+  const handleDeleteClick = async () => {
+    const promise = new Promise(async (resolve, reject) => {
+      const response = await fetch(`/api/menu-items?_id=${id}`, {
+        method: 'DELETE',
+      })
+
+      if (response.ok) {
+        resolve();
+      } else {
+        reject();
+      }
+    })
+
+    await toast.promise(promise, {
+      loading: 'Deleting menu item...',
+      success: 'Item deleted',
+      error: 'Error deleting item!',
+    })
+    setRedirectToItems(true);
+  }
+
   return (
     <section className="mt-8">
       <UserTabs isAdmin={true} />
@@ -66,6 +89,11 @@ export default function EditMenuItemPage() {
         </Link>
       </div>
       <MenuItemForm menuItem={menuItem} onSubmit={handleFormSubmit} />
+      <div className="max-w-md mx-auto mt-2">
+        <div className="max-w-xs ml-auto pl-4">
+          <DeleteButton label={"Delete this menu item"} onDelete={handleDeleteClick} />
+        </div>
+      </div>
     </section>
   );
 }
