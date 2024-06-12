@@ -27,7 +27,7 @@ label {
 label + input {
   margin-top: -2px;
 }
-
+select,
 input[type="email"],
 input[type="password"],
 input[type="text"],
@@ -50,7 +50,7 @@ button,
 }
 
 .custom-button {
-  @apply max-w-md mx-auto;
+  @apply max-w-2xl mx-auto;
 }
 
 button[type="submit"],

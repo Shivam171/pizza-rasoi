@@ -10,20 +10,31 @@ export default function MenuItemForm({ onSubmit, menuItem }) {
   const [basePrice, setBasePrice] = useState(menuItem?.basePrice || '');
   const [sizes, setSizes] = useState(menuItem?.sizes || []);
   const [extraIngredientPrices, setExtraIngredientPrices] = useState(menuItem?.extraIngredientPrices || []);
+  const [category, setCategory] = useState(menuItem?.category || '');
+  const [categories, setCategories] = useState([]);
 
   useEffect(() => {
     if (menuItem?.image) setImage(menuItem.image);
     if (menuItem?.name) setName(menuItem.name);
     if (menuItem?.description) setDescription(menuItem.description);
+    if (menuItem?.category) setCategory(menuItem.category);
     if (menuItem?.basePrice) setBasePrice(menuItem.basePrice);
     if (menuItem?.sizes) setSizes(menuItem.sizes);
     if (menuItem?.extraIngredientPrices) setExtraIngredientPrices(menuItem.extraIngredientPrices);
   }, [menuItem]);
 
+  useEffect(() => {
+    fetch('/api/categories').then(res => {
+      res.json().then(categories => {
+        setCategories(categories);
+      })
+    })
+  }, [])
+
   return (
     <form
-      className="mt-8 max-w-md mx-auto"
-      onSubmit={ev => onSubmit(ev, { image, name, description, basePrice, sizes, extraIngredientPrices })}>
+      className="mt-8 max-w-2xl mx-auto"
+      onSubmit={ev => onSubmit(ev, { image, name, description, basePrice, sizes, extraIngredientPrices, category })}>
       <div
         className="grid items-start gap-4"
         style={{ gridTemplateColumns: ".3fr .7fr" }}
@@ -49,6 +60,12 @@ export default function MenuItemForm({ onSubmit, menuItem }) {
               setDescription(ev.target.value);
             }}
           />
+          <label>Category</label>
+          <select value={category} onChange={ev => setCategory(ev.target.value)}>{categories?.length > 0 && categories.map(
+            c => (
+              <option key={c._id} value={c._id}>{c.name}</option>
+            )
+          )}</select>
           <label>Base Price</label>
           <input
             type="text"
