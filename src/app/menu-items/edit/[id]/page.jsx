@@ -1,5 +1,6 @@
 "use client";
 import DeleteButton from "@/components/DeleteButton";
+import useProfile from "@/components/UseProfile";
 import Left from "@/components/icons/Left";
 import MenuItemForm from "@/components/layout/MenuItemForm";
 import UserTabs from "@/components/layout/UserTabs";
@@ -12,13 +13,7 @@ export default function EditMenuItemPage() {
   const [redirectToItems, setRedirectToItems] = useState(false);
   const { id } = useParams();
   const [menuItem, setMenuItem] = useState(null);
-  // const { loading: profileLoading, data: profileData } = useProfile();
-  // if (profileLoading) {
-  //   return 'Loading user info...';
-  // }
-  // if (!profileData.admin) {
-  //   return 'Not an admin';
-  // }
+  const { loading: profileLoading, data: profileData } = useProfile();
 
   useEffect(() => {
     fetch('/api/menu-items').then(res => {
@@ -28,6 +23,12 @@ export default function EditMenuItemPage() {
       })
     })
   }, [id])
+
+  if (profileData && !profileData.admin) {
+    return redirect('/login');
+  }
+
+
 
   const handleFormSubmit = async (ev, data) => {
     ev.preventDefault();
