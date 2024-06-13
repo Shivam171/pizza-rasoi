@@ -1,5 +1,6 @@
 "use client";
 import DeleteButton from "@/components/DeleteButton";
+import useProfile from "@/components/UseProfile";
 import Left from "@/components/icons/Left";
 import MenuItemForm from "@/components/layout/MenuItemForm";
 import UserTabs from "@/components/layout/UserTabs";
@@ -12,13 +13,7 @@ export default function EditMenuItemPage() {
   const [redirectToItems, setRedirectToItems] = useState(false);
   const { id } = useParams();
   const [menuItem, setMenuItem] = useState(null);
-  // const { loading: profileLoading, data: profileData } = useProfile();
-  // if (profileLoading) {
-  //   return 'Loading user info...';
-  // }
-  // if (!profileData.admin) {
-  //   return 'Not an admin';
-  // }
+  const { loading: profileLoading, data: profileData } = useProfile();
 
   useEffect(() => {
     fetch('/api/menu-items').then(res => {
@@ -28,6 +23,12 @@ export default function EditMenuItemPage() {
       })
     })
   }, [id])
+
+  if (profileData && !profileData.admin) {
+    return redirect('/login');
+  }
+
+
 
   const handleFormSubmit = async (ev, data) => {
     ev.preventDefault();
@@ -82,15 +83,15 @@ export default function EditMenuItemPage() {
   return (
     <section className="mt-8">
       <UserTabs isAdmin={true} />
-      <div className="max-w-md mx-auto mt-8">
+      <div className="max-w-2xl mx-auto mt-8">
         <Link href={"/menu-items"} className="button">
           <Left />
           <span>Show all menu items</span>
         </Link>
       </div>
       <MenuItemForm menuItem={menuItem} onSubmit={handleFormSubmit} />
-      <div className="max-w-md mx-auto mt-2">
-        <div className="max-w-xs ml-auto pl-4">
+      <div className="max-w-2xl mx-auto mt-2">
+        <div className="max-w-lg ml-auto pl-12">
           <DeleteButton label={"Delete this menu item"} onDelete={handleDeleteClick} />
         </div>
       </div>
