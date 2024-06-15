@@ -1,7 +1,7 @@
 "use client"
-import SectionHeaders from "@/components/layout/SectionHeaders";
-import MenuItem from "@/components/menu/MenuItem";
-import { useEffect, useState } from "react";
+const MenuItem = React.lazy(() => import('@/components/menu/MenuItem'));
+const SectionHeaders = React.lazy(() => import('@/components/layout/SectionHeaders'));
+import React, { Suspense, useEffect, useState } from "react";
 
 export default function MenuPage() {
   const [categories, setCategories] = useState([]);
@@ -16,10 +16,6 @@ export default function MenuPage() {
       .then(categories => setCategories(categories))
   }, [])
 
-  if (categories.length === 0) {
-    return <div>Loading...</div>;
-  }
-
   return (
     <section className="mt-8">
       {categories.length > 0 && categories.map((category) => {
@@ -30,7 +26,7 @@ export default function MenuPage() {
             </div>
             <div className="mt-6 mb-12 grid grid-cols-3 gap-4">
               {menuItems.filter((item) => item.category === category._id).map((item) => {
-                return <MenuItem key={item._id} {...item} />
+                return <Suspense fallback={<div>Loading...</div>} key={item._id}><MenuItem {...item} /></Suspense>
               })}
             </div>
           </div>
