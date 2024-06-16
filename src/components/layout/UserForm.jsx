@@ -2,6 +2,8 @@
 import EditableImage from "@/components/EditableImage";
 import { useEffect, useState } from "react";
 import useProfile from "../UseProfile";
+import AddressInputs from "./AddressInputs";
+
 
 export default function UserForm({ user, onSave }) {
   const [userName, setUserName] = useState(user?.name || '');
@@ -49,28 +51,17 @@ export default function UserForm({ user, onSave }) {
         <label>Email</label>
         <input type="text" disabled value={user.email} />
 
-        <label>Phone</label>
-        <input type="tel" placeholder="Phone number" value={phone} onChange={ev => { setPhone(ev.target.value) }} />
-
-        <label>Street Address</label>
-        <input type="text" placeholder="Street address" value={streetAddress} onChange={ev => { setStreetAddress(ev.target.value) }} />
-
-        <div className="grid grid-cols-2 gap-2">
-          <div className="">
-            <label>City</label>
-            <input type="text" placeholder="City" value={city} onChange={ev => { setCity(ev.target.value) }} />
-          </div>
-          <div className="">
-            <label>State</label>
-            <input type="text" placeholder="State" value={state} onChange={ev => { setState(ev.target.value) }} />
-          </div>
-        </div>
-
-        <label>Postal Code</label>
-        <input type="text" placeholder="Postal Code" value={postalCode} onChange={ev => { setPostalCode(ev.target.value) }} />
-
-        <label>Country</label>
-        <input type="text" placeholder="Country" value={country} onChange={ev => { setCountry(ev.target.value) }} />
+        <AddressInputs
+          addressProps={{ phone, streetAddress, city, state, postalCode, country }}
+          setAddressProps={(key, value) => {
+            if (key === 'phone') setPhone(value)
+            if (key === 'streetAddress') setStreetAddress(value)
+            if (key === 'city') setCity(value)
+            if (key === 'state') setState(value)
+            if (key === 'postalCode') setPostalCode(value)
+            if (key === 'country') setCountry(value)
+          }}
+        />
 
         {loggedInUserData?.admin && (
           <div className="">
