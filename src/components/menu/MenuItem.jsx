@@ -11,7 +11,7 @@ export default function MenuItem(menuItem) {
   const [selectedSize, setSelectedSize] = useState(sizes?.[0] || null);
   const [selectedExtras, setSelectedExtras] = useState([]);
 
-  function handleAddToCartButtonClick() {
+  async function handleAddToCartButtonClick() {
     const hasOptions = sizes.length > 0 || extraIngredientPrices.length > 0;
     if (hasOptions && !showPopup) {
       setShowPopup(true);
@@ -19,7 +19,9 @@ export default function MenuItem(menuItem) {
     }
     addToCart(menuItem, selectedSize, selectedExtras);
     setShowPopup(false);
-    toast.success('Item added to cart!')
+    toast.success('Item added to cart!', {
+      position: 'top-right',
+    })
   }
 
   function handleExtraThingClick(ev, extraThing) {
@@ -102,8 +104,7 @@ export default function MenuItem(menuItem) {
               <button
                 onClick={handleAddToCartButtonClick}
                 type="button"
-                className="primary sticky bottom-2"
-              >
+                className="bg-primary text-white sticky bottom-2">
                 Add to cart ${selectedPrice}
               </button>
               <button
