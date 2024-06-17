@@ -4,6 +4,16 @@
 
 Pizza Rasoi is a full-stack web application built using Next.js 14, Node.js, and MongoDB with Tailwind CSS. It offers a complete online pizza ordering experience, including user authentication, shopping cart functionality, and an admin dashboard for managing products, categories, users, and orders.
 
+
+<div>
+   <img src="https://github.com/Shivam171/pizza-rasoi/assets/66107248/1044e095-b116-417d-ba0d-3b3c481b3b9f" height="400px"/>
+   <img src="https://github.com/Shivam171/pizza-rasoi/assets/66107248/532761e2-7cbe-49aa-aef6-641a9aabb0cf" height="400px"/>
+   <img src="https://github.com/Shivam171/pizza-rasoi/assets/66107248/0a195a2a-131d-489a-ba4c-d959627b0a3a" height="400px"/>
+</div>
+
+#### Checkout live demo on [vercel](https://pizza-rasoi.vercel.app/).
+
+
 ## ✨ Features
 
 ### General
@@ -15,13 +25,12 @@ Pizza Rasoi is a full-stack web application built using Next.js 14, Node.js, and
 
 - **🍽️Menu:** Browse a variety of pizzas available for order.
 - **🛒Shopping Cart:** Add pizzas to the cart, choose pizza sizes, add extra toppings, and view the cart with subtotal, delivery charges, and total charges.
-- **💳Checkout:** Fill in delivery details and proceed to payment via Stripe.
-- **📜Order Page:** View order details after successful payment.
+- **💳Checkout:** Fill in delivery details and proceed to payment, I haven't added a payment gateway, you can use stripe, shopify or razorpay.
 
 ### 🔐 Authentication
 
 - **User Login:** Login with Google or create an account.
-- **Profile Management:** Update profile information, including uploading a profile image to AWS.
+- **Profile Management:** Update profile information, including uploading a profile image to Firebase.
 
 ### 🔧 Admin Functionality
 
@@ -29,7 +38,7 @@ Pizza Rasoi is a full-stack web application built using Next.js 14, Node.js, and
   - **Categories:** Perform CRUD operations on categories (add, edit, delete, and search).
   - **Menu Items:** Perform CRUD operations on menu items.
   - **Users:** View all users and manage user roles (e.g., promote users to admin).
-  - **Orders:** View and manage all orders.
+  - **Carts:** View and manage all carts.
 
 ## 🛠️ Technologies Used
 
@@ -59,7 +68,7 @@ Pizza Rasoi is a full-stack web application built using Next.js 14, Node.js, and
 - Node.js
 - MongoDB
 - Firebase Account (for image uploads)
-- Stripe Account (for payment processing)
+- Shopify or Stripe or RazorPay Account (for payment processing)
 
 ### Installation
 
@@ -85,7 +94,6 @@ Pizza Rasoi is a full-stack web application built using Next.js 14, Node.js, and
    NEXTAUTH_SECRET=<Your NextAuth secret>
    GOOGLE_CLIENT_ID=<Your Google client id>
    GOOGLE_CLIENT_SECRET=<Your Google client secret key>
-   STRIPE_SECRET_KEY=<Your Stripe secret key>
    FIREBASE=<Refer .env.example>
 
    ```
@@ -107,7 +115,7 @@ Pizza Rasoi is a full-stack web application built using Next.js 14, Node.js, and
 
 1. **Browse Menu:** Navigate to the menu to see different pizzas.
 2. **Add to Cart:** Customize your pizza with size and toppings and add it to the cart.
-3. **Checkout:** Proceed to checkout, fill in your details, and pay via Stripe.
+3. **Checkout:** Proceed to checkout, fill in your details, and pay via your payment gateway.
 4. **View Order:** After payment, view your order details on the order page.
 
 ### Admin Experience
