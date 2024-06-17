@@ -6,9 +6,9 @@ Pizza Rasoi is a full-stack web application built using Next.js 14, Node.js, and
 
 
 <div>
-   <img src="https://github.com/Shivam171/pizza-rasoi/assets/66107248/1044e095-b116-417d-ba0d-3b3c481b3b9f" height="400px"/>
-   <img src="https://github.com/Shivam171/pizza-rasoi/assets/66107248/532761e2-7cbe-49aa-aef6-641a9aabb0cf" height="400px"/>
-   <img src="https://github.com/Shivam171/pizza-rasoi/assets/66107248/0a195a2a-131d-489a-ba4c-d959627b0a3a" height="400px"/>
+   <img src="https://github.com/Shivam171/pizza-rasoi/assets/66107248/1044e095-b116-417d-ba0d-3b3c481b3b9f" height="600px" width="auto"/>
+   <img src="https://github.com/Shivam171/pizza-rasoi/assets/66107248/532761e2-7cbe-49aa-aef6-641a9aabb0cf" height="600px" width="auto"/>
+   <img src="https://github.com/Shivam171/pizza-rasoi/assets/66107248/0a195a2a-131d-489a-ba4c-d959627b0a3a" height="525px" width="auto"/>
 </div>
 
 #### Checkout live demo on [vercel](https://pizza-rasoi.vercel.app/).
