@@ -135,14 +135,6 @@ Pizza Rasoi is a full-stack web application built using Next.js 14, Node.js, and
 5. Push to the branch (`git push origin feature/feature-name`).
 6. Open a pull request.
 
-## 📜 License
-
-This project is licensed under the MIT License.
-
-## 🙏 Acknowledgements
-
-- Thanks to the creators of Next.js, Tailwind CSS, MongoDB, and all the other libraries used in this project.
-
 ---
 
 Feel free to contribute, open issues, and submit pull requests to make Pizza Rasoi even better! Enjoy your pizza ordering experience!
